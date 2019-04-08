@@ -1,5 +1,6 @@
 package com.fse.s1.projectmanager.service;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,10 +30,14 @@ public class UserService implements IUserService {
 	@Override
 	public List<UserEntity> getAllUser() {
 		List<UserEntity> userList = new LinkedList<>();
-		userRepo.findAll().forEach(e -> {
+		/*userRepo.findAll().forEach(e -> {
 			UserEntity ut = e; 
 			userList.add(ut);
-		});
+		});*/
+		Iterator<UserEntity> itr = userRepo.findAll().iterator();
+		while(itr.hasNext()){
+			userList.add(itr.next());
+		}
 		return userList;
 	}
 
