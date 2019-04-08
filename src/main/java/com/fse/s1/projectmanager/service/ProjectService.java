@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fse.s1.projectmanager.entity.ProjectEntity;
+import com.fse.s1.projectmanager.entity.TaskEntity;
 import com.fse.s1.projectmanager.entity.UserEntity;
 import com.fse.s1.projectmanager.repo.ProjectRepository;
 
@@ -19,12 +20,15 @@ public class ProjectService implements IProjectService{
 	@Autowired
 	private IUserService userService;
 	
+	@Autowired
+	private ITaskService taskService; 
+	
 	@Override
 	public List<ProjectEntity> getAllProjects() {
 		List<ProjectEntity> projects = new LinkedList<>();
 		repo.findAll().forEach(e -> {
-			UserEntity manager = userService.getUserByProject(e);
-			e.setManager(manager);
+//			UserEntity manager = userService.getUserByProject(e);
+//			e.setManager(manager);
 			projects.add(e);
 		});
 		return projects;
@@ -34,8 +38,10 @@ public class ProjectService implements IProjectService{
 	public ProjectEntity addProject(ProjectEntity projectEntity) {
 		projectEntity = this.repo.save(projectEntity);
 		if(projectEntity != null && projectEntity.getProjectId() != 0L){
-			projectEntity.getManager().setProjectId(projectEntity);
-			this.userService.updateUserFromProject(projectEntity.getManager());
+			if(projectEntity.getManager() != null){
+				projectEntity.getManager().setProjectId(projectEntity);
+				this.userService.updateUserFromProject(projectEntity.getManager());
+			}
 			return projectEntity;
 		}
 		return new ProjectEntity();
@@ -70,6 +76,11 @@ public class ProjectService implements IProjectService{
 				manager.setProjectId(null);
 				userService.updateUserFromProject(manager);
 			}
+			List<TaskEntity> tasks = taskService.getAllTasksByProjectId(p);
+			tasks.parallelStream().forEach(t -> {
+				t.setProjectId(null);
+				taskService.detachTaskFromProject(t);
+			});
 			
 			this.repo.deleteById(projectId);
 			return "success";

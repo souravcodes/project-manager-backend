@@ -116,6 +116,13 @@ public class TaskService implements ITaskService{
 		}
 		return null;
 	}
+	
+	@Override
+	public TaskEntity detachTaskFromProject(TaskEntity task){
+		task.setProjectId(null);
+		TaskEntity updatedTask = taskRepository.save(task);
+		return updatedTask;
+	}
 
 	@Override
 	public void deleteTask(long id){

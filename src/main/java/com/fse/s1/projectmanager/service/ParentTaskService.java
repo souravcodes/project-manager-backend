@@ -1,5 +1,6 @@
 package com.fse.s1.projectmanager.service;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,9 +43,12 @@ public class ParentTaskService implements IParentTaskService{
 	@Override
 	public List<ParentTaskEntity> getAllParentTask() {
 		List<ParentTaskEntity> parentList = new LinkedList<>();
-		this.parentTaskRepository.findAll().forEach(e -> {
+		Iterator<ParentTaskEntity> itr = this.parentTaskRepository.findAll().iterator();/*.forEach(e -> {
 			parentList.add(e);
-		});
+		});*/
+		while(itr.hasNext()){
+			parentList.add(itr.next());
+		}
 		return parentList;
 	}
 }
