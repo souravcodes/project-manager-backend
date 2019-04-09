@@ -1,6 +1,7 @@
 package com.fse.s1.projectmanager.entity;
 
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,9 +9,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity(name="T_PROJECT_DETAILS")
 public class ProjectEntity {
@@ -32,9 +35,13 @@ public class ProjectEntity {
 	@Column(name="PD_PRIORITY")
 	private int priority;
 
-	@JsonManagedReference(value="projectId")
+	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="userId")
 	@OneToOne(fetch=FetchType.EAGER, mappedBy="projectId")
 	private UserEntity manager;
+	
+	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="taskId")
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="projectId")
+	private List<TaskEntity> tasks;
 	
 	public long getProjectId() {
 		return projectId;
@@ -88,5 +95,13 @@ public class ProjectEntity {
 
 	public void setManager(UserEntity manager) {
 		this.manager = manager;
+	}
+
+	public List<TaskEntity> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<TaskEntity> tasks) {
+		this.tasks = tasks;
 	}
 }

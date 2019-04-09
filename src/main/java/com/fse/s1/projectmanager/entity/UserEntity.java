@@ -9,7 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="T_USER_DETAILS")
@@ -29,12 +30,12 @@ public class UserEntity {
 	@Column(name="UD_EMPLOYEE_ID")
 	public long employeeId;
 
-	@JsonBackReference(value="projectId")
+	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="projectId")
 	@OneToOne
 	@JoinColumn(name="UD_PROJECT_ID")
 	public ProjectEntity projectId;
 
-	@JsonBackReference(value="taskId")
+	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="taskId")
 	@OneToOne
 	@JoinColumn(name="UD_TASK_ID")
 	public TaskEntity taskId;
