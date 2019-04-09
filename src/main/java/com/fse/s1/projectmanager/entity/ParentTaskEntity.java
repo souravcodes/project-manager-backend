@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class ParentTaskEntity {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+//	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="PT_PARENT_ID")
 	private long parentId;
 	

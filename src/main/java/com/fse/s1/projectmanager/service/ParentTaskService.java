@@ -23,15 +23,15 @@ public class ParentTaskService implements IParentTaskService{
 	}
 
 	@Override
-	public ParentTaskEntity parentTaskExists(String pt){
-		return parentTaskRepository.findByParentTask(pt);
+	public boolean parentTaskExists(long pt){
+		return parentTaskRepository.existsById(pt);
 	}
 
 	@Override
 	public synchronized ParentTaskEntity addParentTask(ParentTaskEntity parentTask){
-		ParentTaskEntity pt = this.parentTaskExists(parentTask.getParentTask());
+		/*ParentTaskEntity pt = this.parentTaskExists(parentTask.getParentTask());
 		if(pt != null && pt.getParentId() != 0L)
-			return pt;
+			return pt;*/
 		return parentTaskRepository.save(parentTask);
 	}
 	

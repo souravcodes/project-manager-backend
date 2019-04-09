@@ -10,7 +10,7 @@ public interface IParentTaskService {
 	
 	public List<ParentTaskEntity> getAllParentTask();
 	
-	public ParentTaskEntity parentTaskExists(String pt);
+	public boolean parentTaskExists(long pt);
 	
 	public ParentTaskEntity addParentTask(ParentTaskEntity parentTask);
 	

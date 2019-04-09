@@ -13,8 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name="T_TASK_DETAILS")
@@ -29,7 +28,6 @@ public class TaskEntity {
 	@ManyToOne(fetch=FetchType.EAGER)
 	private ParentTaskEntity parent;
 	
-	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="projectId")
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="TD_PROJECT_ID")
 	private ProjectEntity projectId;
@@ -49,7 +47,7 @@ public class TaskEntity {
 	@Column(name="TD_STATUS")
 	private String status;
 
-	@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="userId")
+	@JsonManagedReference(value="taskId")
 	@OneToOne(fetch=FetchType.EAGER, mappedBy="taskId")
 	private UserEntity userId;
 	

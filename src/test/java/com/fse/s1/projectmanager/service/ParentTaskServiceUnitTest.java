@@ -55,15 +55,15 @@ public class ParentTaskServiceUnitTest{
 
 	@Test
 	public void parentTaskExists(){
-		ParentTaskEntity pt; 
+		boolean pt; 
 		List<ParentTaskEntity> parents = parentService.getAllParentTask();
 		if(parents != null && parents.size() == 1){
-			pt = parentService.parentTaskExists(this.parentTask.getParentTask());
+			pt = parentService.parentTaskExists(this.parentTask.getParentId());
 		}else{
 			this.addParentTask();
-			pt = parentService.parentTaskExists(this.parentTask.getParentTask());
+			pt = parentService.parentTaskExists(this.parentTask.getParentId());
 		}
-		assertEquals(this.parentTask.getParentTask(), pt.getParentTask());
+		assertEquals(true, pt);
 	}
 
 	@Test

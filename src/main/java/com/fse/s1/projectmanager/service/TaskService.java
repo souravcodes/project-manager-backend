@@ -142,12 +142,10 @@ public class TaskService implements ITaskService{
 	
 	private boolean parentExists(TaskEntity taskDetails){
 		if(taskDetails != null && taskDetails.getParent() != null){
-			ParentTaskEntity existingParent = parentTaskService.parentTaskExists(taskDetails.getParent().getParentTask());
-			if(existingParent == null || existingParent.getParentId() == 0){
+			boolean existingParent = parentTaskService.parentTaskExists(taskDetails.getParent().getParentId());
+			if(!existingParent){
 				ParentTaskEntity pTask = parentTaskService.addParentTask(taskDetails.getParent());
 				taskDetails.setParent(pTask);
-			}else{
-				taskDetails.setParent(existingParent);
 			}
 		}
 		return true;
