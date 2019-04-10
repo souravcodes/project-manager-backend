@@ -23,4 +23,6 @@ public interface ITaskService {
 	public List<TaskEntity> getAllTasksByProjectId(ProjectEntity projectId);
 	
 	public TaskEntity detachTaskFromProject(TaskEntity task);
+	
+	public TaskEntity endTask(TaskEntity taskDetails);
 }

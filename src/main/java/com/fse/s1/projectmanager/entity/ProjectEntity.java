@@ -1,6 +1,8 @@
 package com.fse.s1.projectmanager.entity;
 
 import java.sql.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,8 +10,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name="T_PROJECT_DETAILS")
@@ -35,6 +39,14 @@ public class ProjectEntity {
 	@JsonManagedReference(value="projectId")
 	@OneToOne(fetch=FetchType.EAGER, mappedBy="projectId")
 	private UserEntity manager;
+	
+	@JsonIgnore
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="projectId")
+	private List<TaskEntity> tasks;
+	
+	private transient int size;
+	
+	private transient boolean status;
 	
 	public long getProjectId() {
 		return projectId;
@@ -88,5 +100,36 @@ public class ProjectEntity {
 
 	public void setManager(UserEntity manager) {
 		this.manager = manager;
+	}
+
+	public int getSize() {
+		if(tasks != null)
+			return tasks.size();
+		return 0;
+	}
+
+	public List<TaskEntity> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<TaskEntity> tasks) {
+		this.tasks = tasks;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public boolean getStatus() {
+		if(tasks != null && tasks.size() > 0){
+			List<TaskEntity> completedTasks = this.tasks.parallelStream().filter(e -> e.getStatus().equalsIgnoreCase("completed")).collect(Collectors.toList());
+			return (completedTasks.size() == tasks.size());
+		}else{
+			return false;
+		}
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 }

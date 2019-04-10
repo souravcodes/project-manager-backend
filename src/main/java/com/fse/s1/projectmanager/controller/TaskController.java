@@ -103,6 +103,20 @@ public class TaskController {
 	}
 	
 	/**
+	 * Update a Task.
+	 * @param task
+	 * @return
+	 */
+	@RequestMapping(value="/end", method=RequestMethod.PUT, consumes="application/json", produces="application/json")
+	public ResponseEntity<TaskEntity> endTask(@RequestBody TaskEntity task){
+		
+		TaskEntity td = taskService.endTask(task);
+		if(td == null)
+			ResponseEntity.status(HttpStatus.NOT_MODIFIED).build();
+		return ResponseEntity.ok(td);
+	}
+	
+	/**
 	 * End a task or delete a task.
 	 * @param task
 	 * @return
@@ -113,8 +127,10 @@ public class TaskController {
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 	
-	@RequestMapping(value="/project", method=RequestMethod.PUT, consumes="application/json", produces="application/json")
-	public ResponseEntity<List<TaskEntity>> taskByProject(@RequestBody ProjectEntity project){
+	@RequestMapping(value="/project/{id}", method=RequestMethod.GET, produces="application/json")
+	public ResponseEntity<List<TaskEntity>> taskByProject(@PathVariable(name="id") long id){
+		ProjectEntity project = new ProjectEntity();
+		project.setProjectId(id);
 		List<TaskEntity> tasks = taskService.getAllTasksByProjectId(project);
 		if(tasks != null && tasks.size() > 0)
 			return ResponseEntity.ok(tasks);

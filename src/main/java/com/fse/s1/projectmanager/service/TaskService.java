@@ -168,4 +168,19 @@ public class TaskService implements ITaskService{
 		}
 		return new LinkedList<>();
 	}
+
+	@Override
+	public TaskEntity endTask(TaskEntity taskDetails) {
+		if(taskDetails.getTaskId() == 0L)
+			return null;
+		if(taskDetails.getUserId() != null){
+			UserEntity existinguser = userService.getUserByTask(taskDetails);
+			if(existinguser != null){
+				existinguser.setTaskId(null);
+				userService.updateUserFromTask(existinguser);
+			}
+		}
+		TaskEntity td = taskRepository.save(taskDetails);
+		return td;
+	}
 }
