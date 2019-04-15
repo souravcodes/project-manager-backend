@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -53,7 +52,7 @@ public class TaskServiceIntegrationTest{
 		manager.setLastName("manager-surname");
 		manager.setEmployeeId(123456);
 		manager.setFirstName("manager-name");
-		userService.addUser(manager);
+		manager = userService.addUser(manager);
 		
 		ProjectEntity project = new ProjectEntity();
 		project.setProject("Test-project");
@@ -61,7 +60,7 @@ public class TaskServiceIntegrationTest{
 		project.setStartDate(new Date(System.currentTimeMillis()));
 		project.setEndDate(new Date(System.currentTimeMillis() + (24*60*60*1000)));
 		project.setManager(manager);
-		projectService.addProject(project);
+		project = projectService.addProject(project);
 		
 //		ParentTaskEntity parentTask = new ParentTaskEntity();
 //		parentTask.setParentTask("Parent-task");
@@ -84,10 +83,10 @@ public class TaskServiceIntegrationTest{
 		ParentTaskEntity parentTask = new ParentTaskEntity();
 		parentTask.setParentTask("Parent-task_" + parentId);
 		parentTask.setParentId(parentId++);
-		parentService.addParentTask(parentTask);
+		parentTask = parentService.addParentTask(parentTask);
 		this.task.setParent(parentTask);
-		TaskEntity newTask = taskService.saveTask(this.task);
-		assertTrue(newTask.getTaskId() != 0L);
+		this.task = taskService.saveTask(this.task);
+		assertTrue(this.task != null && this.task.getTaskId() != 0L);
 		this.task.toString();
 		this.task.toJson();
 	}
