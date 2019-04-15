@@ -9,10 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -25,12 +24,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fse.s1.projectmanager.ProjectManagerApplication;
 import com.fse.s1.projectmanager.entity.ProjectEntity;
-import com.fse.s1.projectmanager.entity.UserEntity;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes=ProjectManagerApplication.class)
-@ActiveProfiles("test")
-@EnableConfigurationProperties
+@SpringBootTest
 public class ProjectControllerIntegrationTest {
 
 	@Autowired
@@ -44,18 +41,18 @@ public class ProjectControllerIntegrationTest {
 	public void init(){
 		mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
-		UserEntity manager = new UserEntity();
-		manager.setUserId(1);
-		manager.setFirstName("manager-name");
-		manager.setLastName("manager-surname");
-		manager.setEmployeeId(123456);
+//		UserEntity manager = new UserEntity();
+//		manager.setUserId(1);
+//		manager.setFirstName("manager-name");
+//		manager.setLastName("manager-surname");
+//		manager.setEmployeeId(123456);
 		
 		project = new ProjectEntity();
 		project.setProject("Test-project");
 		project.setPriority(19);
 		project.setStartDate(new Date(System.currentTimeMillis()));
 		project.setEndDate(new Date(System.currentTimeMillis() + (24*60*60*1000)));
-		project.setManager(manager);
+//		project.setManager(manager);
 	}
 	
 	@Test

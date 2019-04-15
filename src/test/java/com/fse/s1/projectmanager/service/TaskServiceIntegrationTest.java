@@ -11,8 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -25,8 +24,7 @@ import com.fse.s1.projectmanager.to.SearchCriteria;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes=ProjectManagerApplication.class)
-@ActiveProfiles("test")
-@EnableConfigurationProperties
+@SpringBootTest
 public class TaskServiceIntegrationTest{
 
 	@Autowired
