@@ -1,6 +1,8 @@
 package com.fse.s1.projectmanager.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Date;
 import java.util.List;
@@ -9,7 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -21,9 +25,10 @@ import com.fse.s1.projectmanager.entity.UserEntity;
 import com.fse.s1.projectmanager.to.SearchCriteria;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @ContextConfiguration(classes=ProjectManagerApplication.class)
-public class TaskServiceUnitTest{
+@ActiveProfiles("test")
+@EnableConfigurationProperties
+public class TaskServiceIntegrationTest{
 
 	@Autowired
 	private IUserService userService;

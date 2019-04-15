@@ -10,7 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -18,13 +20,12 @@ import com.fse.s1.projectmanager.ProjectManagerApplication;
 import com.fse.s1.projectmanager.entity.UserEntity;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @ContextConfiguration(classes ={ProjectManagerApplication.class})
-public class UserServiceUnitTest {
+@ActiveProfiles("test")
+@EnableConfigurationProperties
+public class UserServiceIntegrationTest {
 	
 	private UserEntity user;
-//	private ProjectEntity project;
-//	private TaskEntity task;
 	
 	@Autowired
 	private IUserService userService;
