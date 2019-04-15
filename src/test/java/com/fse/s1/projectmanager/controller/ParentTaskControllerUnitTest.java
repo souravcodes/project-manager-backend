@@ -40,6 +40,7 @@ public class ParentTaskControllerUnitTest {
 		mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 		
 		parentTask = new ParentTaskEntity();
+		parentTask.setParentId(999999);
 		parentTask.setParentTask("Parent-task");
 	}
 	

@@ -28,7 +28,7 @@ public class ParentTaskService implements IParentTaskService{
 	}
 
 	@Override
-	public synchronized ParentTaskEntity addParentTask(ParentTaskEntity parentTask){
+	public ParentTaskEntity addParentTask(ParentTaskEntity parentTask){
 		/*ParentTaskEntity pt = this.parentTaskExists(parentTask.getParentTask());
 		if(pt != null && pt.getParentId() != 0L)
 			return pt;*/

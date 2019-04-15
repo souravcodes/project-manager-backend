@@ -24,6 +24,8 @@ public class ParentTaskServiceUnitTest{
 	@Autowired
 	private IParentTaskService parentService;
 	
+	private long parentId = 99999;
+	
 	private ParentTaskEntity parentTask;
 	
 	@Before
@@ -34,6 +36,7 @@ public class ParentTaskServiceUnitTest{
 
 	@Test
 	public void addParentTask(){
+		this.parentTask.setParentId(parentId++);
 		this.parentTask = parentService.addParentTask(parentTask);
 		assertTrue(this.parentTask != null && this.parentTask.getParentId() != 0L);
 	}
@@ -64,14 +67,5 @@ public class ParentTaskServiceUnitTest{
 			pt = parentService.parentTaskExists(this.parentTask.getParentId());
 		}
 		assertEquals(true, pt);
-	}
-
-	@Test
-	public void getParentByName(){
-		ParentTaskEntity pt; 
-		this.addParentTask();
-		pt = parentService.getParentByName(this.parentTask.getParentTask());
-		assertEquals(this.parentTask.getParentTask(), pt.getParentTask());
-		pt.toString();
 	}
 }

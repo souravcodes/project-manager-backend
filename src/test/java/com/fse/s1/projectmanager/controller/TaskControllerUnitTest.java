@@ -170,22 +170,6 @@ public class TaskControllerUnitTest {
 		assertTrue(result.getResponse().getStatus() == HttpStatus.OK.value());
 		
 		criteria = new SearchCriteria();
-		criteria.setParentTask(task.getParent().getParentTask());
-		request = MockMvcRequestBuilders.put("/task/filtered")
-				.content(getValueAsString(criteria))
-				.contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON);
-		result = null;
-		try {
-			result = mockMvc.perform(request).andReturn();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		assertTrue(result != null);
-		assertTrue(result.getResponse() != null);
-		assertTrue(result.getResponse().getStatus() == HttpStatus.OK.value());
-
-		criteria = new SearchCriteria();
 		criteria.setParentTask(task.getParent().getParentId() + "");
 		request = MockMvcRequestBuilders.put("/task/filtered")
 				.content(getValueAsString(criteria))
@@ -235,6 +219,25 @@ public class TaskControllerUnitTest {
 		assertTrue(result != null);
 		assertTrue(result.getResponse() != null);
 		assertTrue(result.getResponse().getStatus() == HttpStatus.NO_CONTENT.value());
+	}
+	
+	@Test
+	public void endTask(){
+		this.addTaskDetails();
+		
+		RequestBuilder request = MockMvcRequestBuilders.put("/task/end", this.task)
+				.content(getValueAsString(task))
+				.contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON);;
+		MvcResult result = null;
+		try {
+			result = mockMvc.perform(request).andReturn();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		assertTrue(result != null);
+		assertTrue(result.getResponse() != null);
+		assertTrue(result.getResponse().getStatus() == HttpStatus.OK.value());
 	}
 	
 	/*@RequestMapping(value="/project", method=RequestMethod.PUT, consumes="application/json", produces="application/json")

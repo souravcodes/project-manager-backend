@@ -37,6 +37,8 @@ public class TaskServiceUnitTest{
 	@Autowired
 	private ITaskService taskService;
 	
+	private long parentId = 99999;
+	
 	private TaskEntity task;
 	
 	@Before
@@ -75,7 +77,8 @@ public class TaskServiceUnitTest{
 	@Test
 	public void saveTask(){
 		ParentTaskEntity parentTask = new ParentTaskEntity();
-		parentTask.setParentTask("Parent-task");
+		parentTask.setParentTask("Parent-task_" + parentId);
+		parentTask.setParentId(parentId++);
 		parentService.addParentTask(parentTask);
 		this.task.setParent(parentTask);
 		TaskEntity newTask = taskService.saveTask(this.task);
