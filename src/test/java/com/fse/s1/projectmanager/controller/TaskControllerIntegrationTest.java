@@ -31,9 +31,9 @@ import com.fse.s1.projectmanager.entity.TaskEntity;
 import com.fse.s1.projectmanager.to.SearchCriteria;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @ContextConfiguration(classes=ProjectManagerApplication.class)
-public class TaskControllerUnitTest {
+@SpringBootTest
+public class TaskControllerIntegrationTest {
 
 	@Autowired
 	private TaskController controller;

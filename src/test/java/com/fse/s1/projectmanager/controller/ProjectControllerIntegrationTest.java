@@ -24,12 +24,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fse.s1.projectmanager.ProjectManagerApplication;
 import com.fse.s1.projectmanager.entity.ProjectEntity;
-import com.fse.s1.projectmanager.entity.UserEntity;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @ContextConfiguration(classes=ProjectManagerApplication.class)
-public class ProjectControllerUnitTest {
+@SpringBootTest
+public class ProjectControllerIntegrationTest {
 
 	@Autowired
 	private ProjectController controller;
@@ -42,18 +41,18 @@ public class ProjectControllerUnitTest {
 	public void init(){
 		mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
-		UserEntity manager = new UserEntity();
-		manager.setUserId(1);
-		manager.setFirstName("manager-name");
-		manager.setLastName("manager-surname");
-		manager.setEmployeeId(123456);
+//		UserEntity manager = new UserEntity();
+//		manager.setUserId(1);
+//		manager.setFirstName("manager-name");
+//		manager.setLastName("manager-surname");
+//		manager.setEmployeeId(123456);
 		
 		project = new ProjectEntity();
 		project.setProject("Test-project");
 		project.setPriority(19);
 		project.setStartDate(new Date(System.currentTimeMillis()));
 		project.setEndDate(new Date(System.currentTimeMillis() + (24*60*60*1000)));
-		project.setManager(manager);
+//		project.setManager(manager);
 	}
 	
 	@Test

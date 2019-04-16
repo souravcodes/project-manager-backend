@@ -25,9 +25,9 @@ import com.fse.s1.projectmanager.ProjectManagerApplication;
 import com.fse.s1.projectmanager.entity.UserEntity;
 
 @RunWith(SpringRunner.class)
+@ContextConfiguration(classes=ProjectManagerApplication.class)
 @SpringBootTest
-@ContextConfiguration(classes ={ProjectManagerApplication.class})
-public class UserControllerUnitTest {
+public class UserControllerIntegrationTest {
 
 	@Autowired
 	private UserController controller;

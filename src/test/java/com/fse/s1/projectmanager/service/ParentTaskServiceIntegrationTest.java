@@ -17,9 +17,9 @@ import com.fse.s1.projectmanager.ProjectManagerApplication;
 import com.fse.s1.projectmanager.entity.ParentTaskEntity;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @ContextConfiguration(classes=ProjectManagerApplication.class)
-public class ParentTaskServiceUnitTest{
+@SpringBootTest
+public class ParentTaskServiceIntegrationTest{
 
 	@Autowired
 	private IParentTaskService parentService;
@@ -58,6 +58,7 @@ public class ParentTaskServiceUnitTest{
 
 	@Test
 	public void parentTaskExists(){
+		this.addParentTask();
 		boolean pt; 
 		List<ParentTaskEntity> parents = parentService.getAllParentTask();
 		if(parents != null && parents.size() == 1){

@@ -25,9 +25,9 @@ import com.fse.s1.projectmanager.ProjectManagerApplication;
 import com.fse.s1.projectmanager.entity.ParentTaskEntity;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @ContextConfiguration(classes=ProjectManagerApplication.class)
-public class ParentTaskControllerUnitTest {
+@SpringBootTest
+public class ParentTaskControllerIntegrationTest {
 
 	@Autowired
 	private ParentTaskController controller;

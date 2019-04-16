@@ -1,6 +1,8 @@
 package com.fse.s1.projectmanager.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.sql.Date;
 import java.util.List;
@@ -21,9 +23,9 @@ import com.fse.s1.projectmanager.entity.UserEntity;
 import com.fse.s1.projectmanager.to.SearchCriteria;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @ContextConfiguration(classes=ProjectManagerApplication.class)
-public class TaskServiceUnitTest{
+@SpringBootTest
+public class TaskServiceIntegrationTest{
 
 	@Autowired
 	private IUserService userService;
@@ -48,7 +50,7 @@ public class TaskServiceUnitTest{
 		manager.setLastName("manager-surname");
 		manager.setEmployeeId(123456);
 		manager.setFirstName("manager-name");
-		userService.addUser(manager);
+		manager = userService.addUser(manager);
 		
 		ProjectEntity project = new ProjectEntity();
 		project.setProject("Test-project");
@@ -56,7 +58,7 @@ public class TaskServiceUnitTest{
 		project.setStartDate(new Date(System.currentTimeMillis()));
 		project.setEndDate(new Date(System.currentTimeMillis() + (24*60*60*1000)));
 		project.setManager(manager);
-		projectService.addProject(project);
+		project = projectService.addProject(project);
 		
 //		ParentTaskEntity parentTask = new ParentTaskEntity();
 //		parentTask.setParentTask("Parent-task");
@@ -79,10 +81,10 @@ public class TaskServiceUnitTest{
 		ParentTaskEntity parentTask = new ParentTaskEntity();
 		parentTask.setParentTask("Parent-task_" + parentId);
 		parentTask.setParentId(parentId++);
-		parentService.addParentTask(parentTask);
+		parentTask = parentService.addParentTask(parentTask);
 		this.task.setParent(parentTask);
-		TaskEntity newTask = taskService.saveTask(this.task);
-		assertTrue(newTask.getTaskId() != 0L);
+		this.task = taskService.saveTask(this.task);
+		assertTrue(this.task != null && this.task.getTaskId() != 0L);
 		this.task.toString();
 		this.task.toJson();
 	}

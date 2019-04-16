@@ -20,9 +20,9 @@ import com.fse.s1.projectmanager.entity.ProjectEntity;
 import com.fse.s1.projectmanager.entity.UserEntity;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
 @ContextConfiguration(classes=ProjectManagerApplication.class)
-public class ProjectServiceUnitTest {
+@SpringBootTest
+public class ProjectServiceIntegrationTest {
 	
 	@Autowired
 	private IUserService userService;
