@@ -21,6 +21,7 @@ import com.fse.s1.projectmanager.entity.UserEntity;
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes=ProjectManagerApplication.class)
 @SpringBootTest
+@ActiveProfiles("test")
 public class UserServiceIntegrationTest {
 	
 	private UserEntity user;
